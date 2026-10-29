@@ -1,0 +1,12 @@
+MINHA ROTINA — VERSÃO PROFISSIONAL
+
+Esta versão tem visual renovado, navegação por abas, calendário por data, tarefas com horário, controle de água com oito copos de 500 ml (4 L), marcador diário de creatina, registro de jejum e refeições, histórico e exportação/importação de backup.
+
+PARA PUBLICAR GRATUITAMENTE:
+1. Envie TODOS os arquivos desta pasta para a raiz de um repositório GitHub público.
+2. No repositório, vá a Settings > Pages.
+3. Em Build and deployment, selecione Deploy from a branch, branch main e pasta /(root), depois Save.
+4. Espere a publicação e abra o endereço HTTPS no Chrome do Android.
+5. No menu do Chrome, escolha Instalar app ou Adicionar à tela inicial.
+
+O ZIP não é um APK. É um pacote para publicação como aplicação web instalável (PWA). Os dados são guardados localmente no navegador; use Exportar meus dados para criar um backup.

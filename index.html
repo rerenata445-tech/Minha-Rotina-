@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15131a">
+<meta name="description" content="Minha Rotina: tarefas, água, jejum e refeições em um só lugar.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>Minha Rotina</title>
+<style>
+:root{--bg:#121117;--panel:#1d1a22;--panel2:#fdf8fb;--pink:#f276a8;--pink2:#ffb2ce;--ink:#211b23;--muted:#aaa2ad;--line:#e9dfe7;--blue:#24b9f2;--green:#26c98a;--radius:22px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{max-width:520px;margin:0 auto;min-height:100vh;padding:22px 16px 100px;background:linear-gradient(180deg,#17141d 0%,#111117 100%)}
+header{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 22px}.brand{font-size:22px;font-weight:850;letter-spacing:-.8px}.brand span{color:var(--pink)}.subbrand{font-size:12px;color:#b7adb9;margin-top:3px}.avatar{height:42px;width:42px;border-radius:50%;background:linear-gradient(140deg,#ffb7d1,#d94683);display:grid;place-items:center;font-weight:800;color:#2c1722}
+.hello{font-size:25px;font-weight:800;letter-spacing:-.7px;margin:8px 0 4px}.lead{font-size:13px;color:#b8afbd;margin:0 0 18px}
+.datebar{display:flex;align-items:center;justify-content:space-between;background:var(--panel2);color:var(--ink);border-radius:17px;padding:13px 14px;margin-bottom:16px;gap:10px}.datebar .date-label{font-weight:750;font-size:14px}.datebar small{display:block;color:#7b707a;font-size:11px;margin-top:3px}.datebar input{border:0;background:transparent;color:var(--ink);max-width:145px;font-size:12px}
+.card{background:var(--panel2);color:var(--ink);border-radius:var(--radius);padding:17px;margin-bottom:14px;box-shadow:0 8px 28px #00000015}.card.dark{background:var(--panel);color:#fff;border:1px solid #ffffff0d}.section-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}.section-head h2,.card h2{font-size:16px;margin:0;font-weight:800;letter-spacing:-.3px}.muted{font-size:12px;color:#887d88}.dark .muted{color:#b3aab7}
+.btn{border:0;border-radius:999px;background:var(--pink);color:#28151f;padding:11px 15px;font-size:12px;font-weight:800}.btn.secondary{background:#f5e8ef;color:#6e3a53}.btn.darkbtn{background:#29242f;color:#fff}.btn.full{width:100%;margin-top:12px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.summary-card{background:var(--panel2);border-radius:19px;padding:15px;color:var(--ink);min-width:0}.summary-card .label{font-size:12px;font-weight:750}.summary-card .big{font-size:24px;font-weight:850;margin:10px 0 3px;letter-spacing:-.6px}.summary-card small{color:#857986;font-size:11px}.mini-progress{height:7px;background:#eee4eb;border-radius:20px;overflow:hidden;margin-top:12px}.mini-progress span{height:100%;display:block;border-radius:20px;background:var(--pink);width:0}
+.progress-line{height:9px;background:#eee4eb;border-radius:20px;overflow:hidden;margin-top:12px}.progress-line span{height:100%;display:block;background:linear-gradient(90deg,#ee6d9f,#ffb4ce);border-radius:20px;transition:width .2s}
+.water-number{display:flex;align-items:center;gap:14px}.water-number .liters{font-size:32px;font-weight:900;letter-spacing:-1px}.water-number .liters small{font-size:14px;color:#9b8b99;font-weight:600}.water-icon{width:54px;height:54px;border-radius:18px;background:#e5f7ff;display:grid;place-items:center;font-size:27px}.water-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:17px 0 5px}.cup{background:#f8f0f6;border:1.5px solid #e7d9e5;border-radius:14px;padding:10px 2px 8px;color:#8a7c88;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10px;font-weight:700;min-height:83px}.cup .glass{font-size:24px;filter:grayscale(1);opacity:.55}.cup.done{background:#e7f8ff;border-color:#36b9ed;color:#147da7}.cup.done .glass{filter:none;opacity:1}.water-foot{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#887d88;margin-top:12px}
+.task-list{display:flex;flex-direction:column}.task{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.task:last-child{border-bottom:0}.check{width:25px;height:25px;border:1.5px solid #d7cbd5;border-radius:50%;background:transparent;display:grid;place-items:center;flex-shrink:0;color:white}.check.done{background:var(--pink);border-color:var(--pink)}.task-main{flex:1;min-width:0}.task-title{font-size:13px;font-weight:750;overflow-wrap:anywhere}.task-title.done{text-decoration:line-through;color:#a69aa5}.task-time{font-size:11px;color:#9a8d98;margin-top:3px}.delete{border:0;background:transparent;color:#b2a5b0;font-size:18px;padding:5px}
+.form-row{display:flex;gap:8px;margin-top:10px}.field{width:100%;min-width:0;padding:12px 13px;border:1px solid #e5d9e2;background:#fff;border-radius:13px;color:#271f29;outline:none;font-size:13px}.field:focus{border-color:var(--pink)}textarea.field{resize:vertical}
+.fieldlabel{display:block;font-size:12px;font-weight:750;margin:13px 0 6px}.meal-item,.history-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.meal-item:last-child,.history-item:last-child{border-bottom:0}.meal-name{font-size:13px;font-weight:750}.meal-note{font-size:11px;color:#948793;margin-top:4px}.pill{background:#fbe3ed;color:#a73c69;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:800;white-space:nowrap}
+.hidden{display:none!important}.screen-title{font-size:26px;font-weight:850;letter-spacing:-.8px;margin:7px 0 4px}.screen-sub{font-size:13px;color:#b6acb9;margin:0 0 20px}.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);padding:10px 7px calc(10px + env(safe-area-inset-bottom));background:#1b1821f5;border-top:1px solid #ffffff13;backdrop-filter:blur(15px);z-index:5}.tab{border:0;background:transparent;color:#9e94a2;display:flex;flex-direction:column;align-items:center;gap:5px;padding:5px 0;font-size:10px;font-weight:650}.tab .ico{font-size:19px;line-height:1}.tab.active{color:var(--pink)}.tab.active .ico{filter:drop-shadow(0 0 6px #f276a855)}
+.notice{padding:12px 13px;background:#28222d;border-radius:15px;color:#f8d5e4;font-size:12px;line-height:1.5;margin:12px 0}.empty{padding:20px;text-align:center;color:#948793;font-size:12px}
+.calendar-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}.calendar-top button{background:#f6e8ef;border:0;border-radius:10px;padding:8px 12px}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center}.weekday{font-size:10px;color:#9c8c99;padding:6px 0}.day{border:0;background:transparent;border-radius:50%;aspect-ratio:1;color:#322a34;font-size:12px}.day.selected{background:var(--pink);font-weight:850}.day.today{outline:1px solid var(--pink)}.day.other{color:#c5b9c3}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f8edf3;padding:13px;border-radius:15px}.stat strong{display:block;font-size:22px;margin-top:7px}.stat small{font-size:11px;color:#8f7f8c}
+@media(min-width:520px){body{background:#0c0b10}.app{box-shadow:0 0 80px #0006}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><div class="brand">Minha <span>Rotina ♡</span></div><div class="subbrand">Pequenos hábitos, grandes resultados</div></div><div class="avatar">R</div></header>
+<main>
+<section id="homeScreen">
+<div class="hello">Olá, Renata! <span style="color:var(--pink)">♡</span></div><p class="lead">Um passo de cada vez. Você consegue!</p>
+<div class="datebar"><div>📅 <span class="date-label" id="friendlyDate">Hoje</span><small>Seus registros do dia</small></div><input type="date" id="datePick" aria-label="Escolher data"></div>
+<div class="summary-grid">
+<div class="summary-card"><div class="label">💧 Água</div><div class="big" id="homeWater">0,0 <small>/ 4 L</small></div><small id="homeWaterText">0 de 8 copos</small><div class="mini-progress"><span id="homeWaterBar"></span></div><button class="btn secondary full" onclick="showScreen('water')">Registrar água</button></div>
+<div class="summary-card"><div class="label">✓ Tarefas</div><div class="big" id="homeTasks">0/0</div><small>Concluídas hoje</small><div class="mini-progress"><span id="homeTaskBar"></span></div><button class="btn secondary full" onclick="showScreen('tasks')">Ver tarefas</button></div>
+</div>
+<div class="card" style="margin-top:14px"><div class="section-head"><h2>💊 Creatina</h2><span class="pill" id="homeCreatineStatus">Pendente</span></div><div class="meal-item"><div><div class="meal-name" id="homeCreatineTitle">Você já tomou hoje?</div><div class="meal-note">Marque quando tomar sua dose habitual.</div></div><button class="btn" id="homeCreatineBtn" onclick="toggleCreatine()">Já tomei</button></div><button class="btn secondary full" onclick="showScreen('creatine')">Ver registro da creatina</button></div>
+<div class="card" style="margin-top:14px"><div class="section-head"><h2>💗 Meu dia</h2><span class="pill" id="dayPercent">0% concluído</span></div><div class="progress-line"><span id="dayBar"></span></div><div class="task-list" style="margin-top:8px"><div class="meal-item"><div><div class="meal-name">⏱️ Jejum</div><div class="meal-note" id="homeFast">Ainda não registrado</div></div><button class="btn secondary" onclick="showScreen('routine')">Registrar</button></div><div class="meal-item"><div><div class="meal-name">🍽️ Refeições</div><div class="meal-note" id="homeMeals">Nenhuma refeição registrada</div></div><button class="btn secondary" onclick="showScreen('routine')">Ver</button></div></div></div>
+<div class="card dark"><div style="font-size:17px;font-weight:800">✨ Você está construindo bons hábitos!</div><div class="muted" style="margin-top:6px;line-height:1.5">Não precisa ser perfeito. O importante é continuar, um dia de cada vez.</div></div>
+</section>
+
+<section id="waterScreen" class="hidden">
+<div class="screen-title">Controle de água 💧</div><p class="screen-sub">Marque cada copo de 500 ml que beber.</p>
+<div class="card"><div class="section-head"><h2>Minha meta diária</h2><span class="pill">4 litros</span></div><div class="water-number"><div class="water-icon">💧</div><div><div class="liters" id="waterLiters">0,0 L <small>/ 4 L</small></div><div class="muted" id="waterProgressText">0 de 8 copos marcados</div></div></div><div class="progress-line"><span id="waterBar"></span></div><div class="water-grid" id="waterGrid"></div><div class="water-foot"><span>🥤 Cada copo = 500 ml</span><span id="waterRemaining">Faltam 4 L</span></div><button class="btn full" onclick="addWater()">＋ Registrar mais 500 ml</button><button class="btn secondary full" onclick="resetWater()">Desmarcar todos os copos</button></div>
+<div class="notice">💡 A meta é um guia, não uma obrigação. Suas necessidades variam conforme o clima, atividade física e saúde. Não force o consumo de água.</div>
+</section>
+
+<section id="creatineScreen" class="hidden">
+<div class="screen-title">Minha creatina 💊</div><p class="screen-sub">Um lembrete visual para acompanhar seu registro diário.</p>
+<div class="card"><div style="background:linear-gradient(120deg,#fbe0ec,#f8edf3);border-radius:17px;padding:16px;margin-bottom:15px;color:#382430"><div style="font-size:24px">💊 ♡</div><div style="font-size:16px;font-weight:850;margin-top:8px">Disciplina também é autocuidado</div><div class="muted" style="margin-top:5px">Marque o registro quando tomar sua dose habitual.</div></div>
+<div class="section-head"><h2>Registro de hoje</h2><span class="pill" id="creatineStatus">Pendente</span></div>
+<div class="meal-item"><div><div class="meal-name" id="creatineBigStatus">Você ainda não marcou a dose</div><div class="meal-note" id="creatineDateText">Registro do dia</div></div><span style="font-size:26px" id="creatineCheckIcon">○</span></div>
+<button class="btn full" id="creatineToggleBtn" onclick="toggleCreatine()">✓ Já tomei hoje</button>
+<button class="btn secondary full" onclick="resetCreatine()">Desmarcar registro deste dia</button>
+<div class="notice">Este marcador é apenas um lembrete, não uma recomendação de dose. Siga a orientação do profissional que acompanha você e as instruções do produto.</div></div>
+</section>
+
+<section id="tasksScreen" class="hidden">
+<div class="screen-title">Minhas tarefas ✓</div><p class="screen-sub">Organize o dia e comemore cada pequena conquista.</p>
+<div class="card"><div class="section-head"><h2>Tarefas do dia</h2><span class="pill" id="taskCount">0 concluídas</span></div><div class="task-list" id="taskList"></div><div class="form-row"><input id="taskInput" class="field" placeholder="Ex.: Caminhar 30 minutos"><button class="btn" onclick="addTask()">Adicionar</button></div><div class="form-row"><input id="taskTime" class="field" type="time" aria-label="Horário da tarefa" style="max-width:145px"><span class="muted" style="align-self:center">Horário (opcional)</span></div></div>
+</section>
+
+<section id="routineScreen" class="hidden">
+<div class="screen-title">Jejum & refeições 🍽️</div><p class="screen-sub">Registre os horários e acompanhe sua rotina alimentar.</p>
+<div class="card"><div class="section-head"><h2>⏱️ Meu jejum</h2><span class="pill" id="fastStatus">Não iniciado</span></div><label class="fieldlabel" for="fastStart">Horário de início</label><input class="field" type="time" id="fastStart"><label class="fieldlabel" for="fastEnd">Horário de término</label><input class="field" type="time" id="fastEnd"><label class="fieldlabel" for="fastNote">Observações (opcional)</label><textarea class="field" id="fastNote" rows="2" placeholder="Como me senti?"></textarea><button class="btn full" onclick="saveFast()">Salvar registro do jejum</button><div class="muted" style="margin-top:10px">Use o registro para acompanhar seus horários; não precisa prolongar o jejum se sentir mal.</div></div>
+<div class="card"><div class="section-head"><h2>🍲 Minhas refeições</h2><span class="pill" id="mealCount">0 registradas</span></div><div id="mealList"></div><label class="fieldlabel" for="mealType">Refeição</label><select class="field" id="mealType"><option>Café da manhã</option><option>Lanche da manhã</option><option>Almoço</option><option>Lanche da tarde</option><option>Jantar</option><option>Ceia</option></select><div class="form-row"><input class="field" type="time" id="mealTime" aria-label="Horário da refeição"><input class="field" id="mealFood" placeholder="O que comeu?"></div><button class="btn full" onclick="addMeal()">＋ Adicionar refeição</button></div>
+</section>
+
+<section id="historyScreen" class="hidden">
+<div class="screen-title">Meu histórico 📈</div><p class="screen-sub">Veja os registros salvos por dia.</p>
+<div class="card"><div class="section-head"><h2>Resumo da data</h2><input type="date" id="historyDate" class="field" style="width:auto;max-width:145px;padding:8px"></div><div class="stats"><div class="stat"><small>Água consumida</small><strong id="histWater">0 L</strong><small>Meta: 4 L</small></div><div class="stat"><small>Tarefas concluídas</small><strong id="histTasks">0/0</strong><small>do dia</small></div><div class="stat"><small>Refeições</small><strong id="histMeals">0</strong><small>registradas</small></div><div class="stat"><small>Creatina</small><strong id="histCreatine" style="font-size:16px">Pendente</strong><small>registro do dia</small></div><div class="stat"><small>Jejum</small><strong id="histFast" style="font-size:16px">—</strong><small>horários</small></div></div></div>
+<div class="card"><div class="section-head"><h2>Resumo dos últimos dias</h2></div><div id="historyList"></div><button class="btn secondary full" onclick="exportData()">Exportar meus dados</button><label class="btn secondary full" style="display:block;text-align:center;cursor:pointer">Importar backup JSON<input type="file" id="importFile" accept=".json,application/json" hidden onchange="importData(event)"></label></div>
+</section>
+</main>
+</div>
+<nav class="tabs">
+<button class="tab active" data-screen="home"><span class="ico">⌂</span>Início</button>
+<button class="tab" data-screen="water"><span class="ico">♧</span>Água</button>
+<button class="tab" data-screen="creatine"><span class="ico">💊</span>Creatina</button>
+<button class="tab" data-screen="tasks"><span class="ico">✓</span>Tarefas</button>
+<button class="tab" data-screen="routine"><span class="ico">♨</span>Rotina</button>
+<button class="tab" data-screen="history"><span class="ico">▤</span>Histórico</button>
+</nav>
+<script>
+const $=id=>document.getElementById(id);
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+let selectedDate=today();
+let store={};
+try{store=JSON.parse(localStorage.getItem('minhaRotinaProV1')||'{}')}catch(e){store={}}
+function dayData(date=selectedDate){if(!store[date])store[date]={water:Array(8).fill(false),tasks:[],fast:{start:'',end:'',note:''},meals:[]};let d=store[date];if(!Array.isArray(d.water))d.water=Array(8).fill(false);while(d.water.length<8)d.water.push(false);if(!Array.isArray(d.tasks))d.tasks=[];if(!Array.isArray(d.meals))d.meals=[];if(!d.fast)d.fast={start:'',end:'',note:''};if(typeof d.creatine!=='boolean')d.creatine=false;return d}
+function save(){localStorage.setItem('minhaRotinaProV1',JSON.stringify(store));render()}
+function fmtDate(date){if(!date)return 'Hoje';let [y,m,d]=date.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'})}
+function liters(d){return d.water.filter(Boolean).length*.5}
+function showScreen(name){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));$(name+'Screen').classList.remove('hidden');document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.screen===name));render()}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>showScreen(b.dataset.screen)));
+$('datePick').value=selectedDate;$('historyDate').value=selectedDate;
+$('datePick').addEventListener('change',e=>{selectedDate=e.target.value||today();$('historyDate').value=selectedDate;render()});
+$('historyDate').addEventListener('change',e=>{selectedDate=e.target.value||today();$('datePick').value=selectedDate;render()});
+function toggleWater(i){let d=dayData();d.water[i]=!d.water[i];save()}
+function addWater(){let d=dayData();let i=d.water.findIndex(v=>!v);if(i<0){alert('Você já marcou os 8 copos da meta!');return}d.water[i]=true;save()}
+function resetWater(){if(confirm('Quer desmarcar todos os copos deste dia?')){dayData().water=Array(8).fill(false);save()}}
+function toggleCreatine(){let d=dayData();d.creatine=!d.creatine;save()}
+function resetCreatine(){if(confirm('Quer deixar o registro da creatina como pendente neste dia?')){dayData().creatine=false;save()}}
+function addTask(){let input=$('taskInput'),title=input.value.trim();if(!title){input.focus();return}dayData().tasks.push({title,time:$('taskTime').value,done:false});input.value='';$('taskTime').value='';save()}
+function toggleTask(i){let d=dayData();d.tasks[i].done=!d.tasks[i].done;save()}
+function deleteTask(i){dayData().tasks.splice(i,1);save()}
+function saveFast(){let d=dayData();d.fast={start:$('fastStart').value,end:$('fastEnd').value,note:$('fastNote').value.trim()};save()}
+function addMeal(){let food=$('mealFood').value.trim();if(!food){$('mealFood').focus();return}dayData().meals.push({type:$('mealType').value,time:$('mealTime').value,food});$('mealFood').value='';$('mealTime').value='';save()}
+function deleteMeal(i){dayData().meals.splice(i,1);save()}
+function render(){
+let d=dayData(),count=d.water.filter(Boolean).length,l=liters(d),done=d.tasks.filter(t=>t.done).length,total=d.tasks.length;
+$('friendlyDate').textContent=selectedDate===today()?'Hoje':fmtDate(selectedDate);
+$('homeWater').innerHTML=l.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+' <small>/ 4 L</small>';$('homeWaterText').textContent=`${count} de 8 copos`;$('homeWaterBar').style.width=Math.min(100,l/4*100)+'%';
+$('homeTasks').textContent=`${done}/${total}`;$('homeTaskBar').style.width=(total?done/total*100:0)+'%';
+let percent=Math.round(((count/8)+(total?done/total:0))/ (total?2:1)*100);$('dayPercent').textContent=percent+'% concluído';$('dayBar').style.width=percent+'%';
+$('homeFast').textContent=d.fast.start?(d.fast.end?`${d.fast.start} às ${d.fast.end}`:`Início às ${d.fast.start}`):'Ainda não registrado';$('homeMeals').textContent=d.meals.length?`${d.meals.length} refeição(ões) registrada(s)`:'Nenhuma refeição registrada';
+$('homeCreatineStatus').textContent=d.creatine?'Já tomei ✓':'Pendente';$('homeCreatineTitle').textContent=d.creatine?'Dose registrada hoje!':'Você já tomou hoje?';$('homeCreatineBtn').textContent=d.creatine?'Desmarcar':'Já tomei';
+$('creatineStatus').textContent=d.creatine?'Registrada ✓':'Pendente';$('creatineBigStatus').textContent=d.creatine?'Você marcou que tomou hoje':'Você ainda não marcou a dose';$('creatineDateText').textContent=fmtDate(selectedDate);$('creatineCheckIcon').textContent=d.creatine?'✓':'○';$('creatineToggleBtn').textContent=d.creatine?'Desmarcar dose de hoje':'✓ Já tomei hoje';
+$('waterLiters').innerHTML=l.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+' L <small>/ 4 L</small>';$('waterProgressText').textContent=`${count} de 8 copos marcados`;$('waterBar').style.width=Math.min(100,l/4*100)+'%';$('waterRemaining').textContent=l>=4?'Meta alcançada! 🎉':`Faltam ${(4-l).toLocaleString('pt-BR')} L`;
+$('waterGrid').innerHTML=d.water.map((v,i)=>`<button class="cup ${v?'done':''}" onclick="toggleWater(${i})" aria-label="Copos ${i+1}, ${v?'marcado':'não marcado'}"><span class="glass">${v?'🥤':'🥛'}</span><span>${v?'✓ ':''}500 ml</span><span>${i+1}º copo</span></button>`).join('');
+$('taskCount').textContent=`${done} de ${total} concluídas`;$('taskList').innerHTML=total?d.tasks.map((t,i)=>`<div class="task"><button class="check ${t.done?'done':''}" onclick="toggleTask(${i})">${t.done?'✓':''}</button><div class="task-main"><div class="task-title ${t.done?'done':''}">${escapeHtml(t.title)}</div><div class="task-time">${t.time||'Sem horário definido'}</div></div><button class="delete" onclick="deleteTask(${i})" aria-label="Excluir tarefa">×</button></div>`).join(''):'<div class="empty">Nenhuma tarefa por enquanto. Adicione sua primeira tarefa acima. ♡</div>';
+$('fastStart').value=d.fast.start||'';$('fastEnd').value=d.fast.end||'';$('fastNote').value=d.fast.note||'';$('fastStatus').textContent=d.fast.start?(d.fast.end?'Registrado':'Em andamento'):'Não iniciado';
+$('mealCount').textContent=`${d.meals.length} registrada(s)`;$('mealList').innerHTML=d.meals.length?d.meals.map((m,i)=>`<div class="meal-item"><div><div class="meal-name">${escapeHtml(m.type)}</div><div class="meal-note">${m.time||'Horário não informado'} · ${escapeHtml(m.food)}</div></div><button class="delete" onclick="deleteMeal(${i})">×</button></div>`).join(''):'<div class="empty">Suas refeições registradas aparecerão aqui.</div>';
+$('histWater').textContent=l.toLocaleString('pt-BR')+' L';$('histTasks').textContent=`${done}/${total}`;$('histMeals').textContent=d.meals.length;$('histCreatine').textContent=d.creatine?'Tomada ✓':'Pendente';$('histFast').textContent=d.fast.start?(d.fast.end?`${d.fast.start}–${d.fast.end}`:d.fast.start):'—';
+let dates=Object.keys(store).sort((a,b)=>b.localeCompare(a)).slice(0,7);$('historyList').innerHTML=dates.length?dates.map(date=>{let x=dayData(date);return `<div class="history-item"><div><div class="meal-name">${fmtDate(date)}</div><div class="meal-note">💧 ${liters(x).toLocaleString('pt-BR')} L · ✓ ${x.tasks.filter(t=>t.done).length}/${x.tasks.length} tarefas · 🍽️ ${x.meals.length} refeições · 💊 ${x.creatine?'creatina marcada':'creatina pendente'}</div></div><button class="btn secondary" onclick="selectHistory('${date}')">Ver dia</button></div>`}).join(''):'<div class="empty">Seus dias registrados aparecerão aqui.</div>';
+}
+function selectHistory(date){selectedDate=date;$('datePick').value=date;$('historyDate').value=date;showScreen('home')}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function exportData(){let blob=new Blob([JSON.stringify(store,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='minha-rotina-backup.json';a.click();URL.revokeObjectURL(url)}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let parsed=JSON.parse(r.result);if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw Error();store=parsed;save();alert('Backup importado com sucesso!')}catch(err){alert('Não foi possível importar. Confira se selecionou um backup JSON válido.')}};r.readAsText(f);e.target.value=''}
+render();
+if('serviceWorker'in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+</script>
+</body>
+</html>
